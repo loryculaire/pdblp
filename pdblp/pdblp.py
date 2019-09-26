@@ -754,7 +754,7 @@ class BCon(object):
     def _beqs(self, screen_name, screen_type, group, language_id, asof_date):
 
         # flush event queue in case previous call errored out
-        while (self.session.tryNextEvent()):
+        while (self._session.tryNextEvent()):
             pass
 
         request = self._beqs_create_req(screen_name, screen_type, group, language_id)
@@ -769,12 +769,12 @@ class BCon(object):
 
         logging.debug("Sending Request:\n %s" % request)
         # Send the request
-        self.session.sendRequest(request, correlationId=cid)
+        self._session.sendRequest(request, correlationId=cid)
         data = []
         # Process received events
         while (True):
             # We provide timeout to give the chance for Ctrl+C handling:
-            ev = self.session.nextEvent(500)
+            ev = self._session.nextEvent(500)
             data = self._beqs_parse_event(data, ev)
 
             if ev.eventType() == blpapi.Event.RESPONSE:
@@ -861,12 +861,12 @@ class BCon(object):
             # CorrelationID used to keep track of which response coincides with which request
             cid = blpapi.CorrelationId(dt)
             logging.debug("Sending Request:\n %s" % request)
-            self.session.sendRequest(request, correlationId=cid)
+            self._session.sendRequest(request, correlationId=cid)
         data = []
         # Process received events
         ev_counter = 0
         while (True):
-            ev = self.session.nextEvent(timeout)
+            ev = self._session.nextEvent(timeout)
             data = self._beqs_parse_event(data, ev)
             if ev.eventType() == blpapi.Event.RESPONSE:
                 ev_counter += 1
