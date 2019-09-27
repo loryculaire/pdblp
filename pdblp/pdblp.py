@@ -747,7 +747,7 @@ class BCon(object):
 
         data = self._beqs(screen_name, screen_type, group, language_id, asof_date)
 
-        data = DataFrame(data)
+        data = pd.DataFrame(data)
         data.columns = ["ticker", "field", "value", "date"]
         return data
 
