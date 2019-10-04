@@ -3,7 +3,8 @@ import unittest
 import pytest
 import pandas as pd
 import numpy as np
-from pandas.util.testing import assert_frame_equal, assert_index_equalfrom pdblp import pdblp
+from pandas.util.testing import assert_frame_equal, assert_index_equal
+from pdblp import pdblp
 import blpapi
 import os
 
